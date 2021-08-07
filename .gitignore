@@ -88,4 +88,8 @@ nb-configuration.xml
 #############################
 ### other
 #############################
+node
+node_modules
+.npmrc
+pnpm-lock.yaml
 package.json
