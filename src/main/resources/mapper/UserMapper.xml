@@ -11,14 +11,27 @@
             #{email} )
     </insert>
 
-    <!--<resultMap id="TestResultMap" type="Test">
-        <result column="id"             property="id"           jdbcType="DECIMAL"/>
-        <result column="name"           property="name"         jdbcType="VARCHAR"/>
-        <result column="description"    property="description"  jdbcType="VARCHAR"/>
+    <resultMap id="UserDetailMap" type="lv.animelistapp.model.User">
+        <result column="id"         property="id"       jdbcType="DECIMAL"/>
+        <result column="username"   property="username" jdbcType="VARCHAR"/>
+        <result column="password"   property="password" jdbcType="VARCHAR"/>
+        <result column="email"      property="email"    jdbcType="VARCHAR"/>
     </resultMap>
 
-    <select id="getTestData" resultMap="TestResultMap">
-        select * from lval_users
-    </select>-->
+    <select id="getUserDetails" resultMap="UserDetailMap" parameterType="String">
+        SELECT * FROM lval_users WHERE username = #{username}
+    </select>
 
+    <resultMap id="RoleMap" type="lv.animelistapp.model.UserRoles">
+        <result column="id"     property="id"   jdbcType="DECIMAL"/>
+        <result column="role"   property="role" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getUserRolesById" resultMap="RoleMap" parameterType="long">
+        SELECT rls.id, rls.role
+        FROM lval_user_roles urls,
+             lval_roles rls
+        WHERE urls.role_id = rls.id
+              and urls.user_id = #{userId}
+    </select>
 </mapper>

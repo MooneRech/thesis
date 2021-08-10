@@ -1,6 +1,8 @@
 package lv.animelistapp.model;
 
 public class User {
+    
+    private long id;
 
     private String username;
 
@@ -11,6 +13,16 @@ public class User {
     private String confirmPassword;
 
     private String passwordEncrypted;
+
+    public User() {
+
+    }
+    public User(User userSuper) {
+        this.id = userSuper.getId();
+        this.username = userSuper.getUsername();
+        this.password  = userSuper.getPassword();
+        this.email = userSuper.getEmail();
+    }
 
     public String getPasswordEncrypted() {
         return passwordEncrypted;
@@ -50,5 +62,13 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

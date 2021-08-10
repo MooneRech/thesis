@@ -22,10 +22,6 @@ public class LoginPage extends VerticalLayout implements BeforeEnterObserver {
 
         add(loginForm);
 
-        //Button button = new Button();
-        ///button.setText(msg.getMsg("login.registration"));
-        //add(button);
-
     }
 
     private LoginI18n changeLanguage() {
@@ -40,7 +36,8 @@ public class LoginPage extends VerticalLayout implements BeforeEnterObserver {
         login.setForm(loginI18nForm);
 
         LoginI18n.ErrorMessage loginErrorMessage = login.getErrorMessage();
-        loginErrorMessage.setMessage(Msg.getMsg("login.error.message"));
+        loginErrorMessage.setMessage("");
+        loginErrorMessage.setTitle(Msg.getMsg("login.error.message"));
         login.setErrorMessage(loginErrorMessage);
 
         return login;

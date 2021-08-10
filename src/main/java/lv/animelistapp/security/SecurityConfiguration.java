@@ -8,19 +8,18 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @EnableWebSecurity
 @Configuration
 public class SecurityConfiguration extends VaadinWebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsServiceImpl();
+    };
 
     private static final String LOGIN_PROCESSING_URL = "/login";
     private static final String LOGIN_FAILURE_URL = "/login?error";
@@ -28,15 +27,15 @@ public class SecurityConfiguration extends VaadinWebSecurityConfigurerAdapter {
     private static final String LOGOUT_SUCCESS_URL = "/login";
 
     private static final String[] AUTH_WHITELIST = {
-            "/", "/**"
+            "/", "/registration"
     };
 
     private static final String[] AUTH_SECURED = {
-            "/secured/**", "/admin/**"
+            "/secured/**", "/admin", "/admin/**"
     };
 
     private static final String[] AUTH_ADMIN = {
-            "/admin"
+            "/admin1/**"
     };
 
     @Bean
@@ -56,10 +55,6 @@ public class SecurityConfiguration extends VaadinWebSecurityConfigurerAdapter {
                 .requestMatchers(
                         VaadinWebSecurityConfigurerAdapter.getDefaultHttpSecurityPermitMatcher()
                 ).permitAll()
-//                .antMatchers("/**").permitAll()
-//                .antMatchers("/test/*").permitAll()
-//                .antMatchers("/test").permitAll()
-//                .antMatchers("/").permitAll()
 
                 .antMatchers(AUTH_WHITELIST).permitAll()
                 .antMatchers(AUTH_SECURED).authenticated()
@@ -72,18 +67,6 @@ public class SecurityConfiguration extends VaadinWebSecurityConfigurerAdapter {
                 .loginProcessingUrl(LOGIN_PROCESSING_URL)
                 .failureUrl(LOGIN_FAILURE_URL)
                 .and().logout().logoutSuccessUrl(LOGOUT_SUCCESS_URL);
-    }
-
-    @Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withUsername("user")
-                        .password("password")
-                        .roles("USER")
-                        .build();
-
-        return new InMemoryUserDetailsManager(user);
     }
 
     @Override
@@ -105,6 +88,6 @@ public class SecurityConfiguration extends VaadinWebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
     }
 }
