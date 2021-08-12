@@ -2,15 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="lv.animelistapp.mapper.UserMapper">
 
-
-    <insert id="registerUser" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO lval_users (username,password,email)
-        VALUES (
-            #{username},
-            #{password},
-            #{email} )
-    </insert>
-
     <resultMap id="UserDetailMap" type="lv.animelistapp.model.User">
         <result column="id"         property="id"       jdbcType="DECIMAL"/>
         <result column="username"   property="username" jdbcType="VARCHAR"/>
@@ -18,14 +9,22 @@
         <result column="email"      property="email"    jdbcType="VARCHAR"/>
     </resultMap>
 
-    <select id="getUserDetails" resultMap="UserDetailMap" parameterType="String">
-        SELECT * FROM lval_users WHERE username = #{username}
-    </select>
-
     <resultMap id="RoleMap" type="lv.animelistapp.model.UserRoles">
         <result column="id"     property="id"   jdbcType="DECIMAL"/>
         <result column="role"   property="role" jdbcType="VARCHAR"/>
     </resultMap>
+
+    <insert id="registerUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO lval_users (username,password,email)
+        VALUES (
+        #{username},
+        #{password},
+        #{email} )
+    </insert>
+
+    <select id="getUserDetails" resultMap="UserDetailMap" parameterType="String">
+        SELECT * FROM lval_users WHERE username = #{username}
+    </select>
 
     <select id="getUserRolesById" resultMap="RoleMap" parameterType="long">
         SELECT rls.id, rls.role

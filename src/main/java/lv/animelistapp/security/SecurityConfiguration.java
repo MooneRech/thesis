@@ -21,21 +21,24 @@ public class SecurityConfiguration extends VaadinWebSecurityConfigurerAdapter {
         return new UserDetailsServiceImpl();
     };
 
+    public static final String ROLE_ADMIN = "ADMIN";
+    public static final String ROLE_USER = "USER";
+
     private static final String LOGIN_PROCESSING_URL = "/login";
     private static final String LOGIN_FAILURE_URL = "/login?error";
     private static final String LOGIN_URL = "/login";
     private static final String LOGOUT_SUCCESS_URL = "/login";
 
     private static final String[] AUTH_WHITELIST = {
-            "/", "/registration"
+            "/", "/registration", "/animelist/**"
     };
 
     private static final String[] AUTH_SECURED = {
-            "/secured/**", "/admin", "/admin/**"
+            "/admin", "/admin/**"
     };
 
     private static final String[] AUTH_ADMIN = {
-            "/admin1/**"
+            "/admin/**"
     };
 
     @Bean
@@ -58,7 +61,7 @@ public class SecurityConfiguration extends VaadinWebSecurityConfigurerAdapter {
 
                 .antMatchers(AUTH_WHITELIST).permitAll()
                 .antMatchers(AUTH_SECURED).authenticated()
-                .antMatchers(AUTH_ADMIN).hasAnyAuthority("ADMIN")
+                .antMatchers(AUTH_ADMIN).hasAnyAuthority(ROLE_ADMIN)
 
                 .anyRequest().authenticated()
 

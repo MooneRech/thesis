@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="lv.animelistapp.mapper.CodificatorMapper">
+
+    <resultMap id="CodificatorMap" type="lv.animelistapp.model.Codificator">
+        <result column="id"             property="id"           jdbcType="DECIMAL"/>
+        <result column="code"           property="code"         jdbcType="VARCHAR"/>
+        <result column="name"           property="name"         jdbcType="VARCHAR"/>
+        <result column="description"    property="description"  jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="CodifValueMap" type="lv.animelistapp.model.CodificatorValue">
+        <result column="id"             property="id"           jdbcType="DECIMAL"/>
+        <result column="name"           property="name"         jdbcType="VARCHAR"/>
+        <result column="description"    property="description"  jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getCodifList" resultMap="CodificatorMap">
+        SELECT * FROM lval_codificators
+    </select>
+
+    <select id="getCodifValuesByCode" resultMap="CodifValueMap" parameterType="String">
+        SELECT * FROM lval_cdf_values WHERE cdf_id = get_cdf_id_by_code(#{code})
+    </select>
+
+    <delete id="deleteCodifValueById" parameterType="long">
+        DELETE FROM lval_cdf_values WHERE id = #{id}
+    </delete>
+
+    <update id="updateCodifValue" parameterType="map">
+        UPDATE lval_cdf_values
+        SET name = #{name},
+            description = #{description}
+        WHERE id = #{id}
+    </update>
+
+    <insert id="createCodifValue" parameterType="map" useGeneratedKeys="true">
+        INSERT INTO lval_cdf_values (name, description, cdf_id)
+        VALUES (
+            #{name},
+            #{description},
+            get_cdf_id_by_code(#{code})
+        )
+    </insert>
+
+</mapper>

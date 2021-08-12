@@ -1,12 +1,12 @@
 package lv.animelistapp.view.permitted;
 
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.Route;
 import lv.animelistapp.component.CustomEmailField;
 import lv.animelistapp.component.CustomPasswordField;
+import lv.animelistapp.component.CustomPrimaryButton;
 import lv.animelistapp.component.CustomTextField;
 import lv.animelistapp.model.User;
 import lv.animelistapp.repository.UserRepository;
@@ -26,7 +26,7 @@ public class RegistrationPage  extends FormLayout {
     CustomPasswordField password = new CustomPasswordField();
     CustomPasswordField confirmPassword = new CustomPasswordField(Msg.getMsg("registration.textfield.confirm.password"));
 
-    Button submit = new Button(Msg.getMsg("registration.submit"));
+    CustomPrimaryButton submit = new CustomPrimaryButton(Msg.getMsg("registration.submit"));
 
     @Autowired
     public RegistrationPage(UserRepository userRepository) {
@@ -36,8 +36,11 @@ public class RegistrationPage  extends FormLayout {
         binder.setBean(new User());
 
         binder.forField(username)
-                //.withValidator(username -> !username.isBlank(), msg.getMsg("registration.username.empty"))
-                .withValidator(username -> username.length() >= 5, Msg.getMsg("registration.username.length"))
+                .withValidator(username -> username != null
+                                        && !username.isEmpty()
+                                        && !username.isBlank()
+                                        && username.length() >= 5,
+                        Msg.getMsg("registration.username.length"))
                 .bind(User::getUsername, User::setUsername);
         binder.forField(email)
                 .withValidator(email.getEmailValidator())
@@ -53,7 +56,6 @@ public class RegistrationPage  extends FormLayout {
 
         submit.setWidth("115px");
         submit.setMaxWidth("115px");
-        submit.setThemeName("primary");
         submit.addClickListener(e -> {
             onSubmitButtonPress();
         });

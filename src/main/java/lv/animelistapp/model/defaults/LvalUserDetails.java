@@ -39,6 +39,10 @@ public class LvalUserDetails extends User implements UserDetails {
         return grantedAuthorities;
     }
 
+    public boolean isUserInRole(String role) {
+        return getAuthorities().contains(new SimpleGrantedAuthority(role));
+    }
+
     @Override
     public String getPassword() {
         return this.user.getPassword();
