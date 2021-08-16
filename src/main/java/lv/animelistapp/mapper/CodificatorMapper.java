@@ -20,4 +20,9 @@ public interface CodificatorMapper {
 
     void createCodifValue(Map map);
 
+    void addGenreToAnime(Map map);
+
+    List<CodificatorValue> getGenreListByAnimeId(long id);
+
+    void deleteGenresByAnimeId(long animeId);
 }

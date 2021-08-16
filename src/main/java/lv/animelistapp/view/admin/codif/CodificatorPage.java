@@ -4,6 +4,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -56,9 +57,6 @@ public class CodificatorPage extends VerticalLayout {
         codificatorSelect.setItems(codificatorList);
         codificatorSelect.setItemLabelGenerator(Codificator::getName);
         codificatorSelect.addValueChangeListener(e -> afterCodifSelection(e.getValue()));
-//        codificatorSelect.addCustomValueSetListener(e -> customValueListener(e.getSource().getValue()));
-//        codificatorDescription.setLabel(Msg.getMsg("codif.field.description"));
-//        codificatorDescription.setMaxLength(150);
 
         codificatorValueGrid.setColumns("name", "description");
         codificatorValueGrid.getColumnByKey("name").setHeader(Msg.getMsg("codif.grid.name")).setAutoWidth(true);
@@ -66,6 +64,7 @@ public class CodificatorPage extends VerticalLayout {
         codificatorValueGrid.setWidth("100%");
         codificatorValueGrid.addComponentColumn(e -> getEditButton(e)).setHeader("").setAutoWidth(true);
         codificatorValueGrid.addComponentColumn(e -> getDeleteButton(e)).setHeader("").setAutoWidth(true);
+        codificatorValueGrid.addThemeVariants(GridVariant.LUMO_WRAP_CELL_CONTENT);
 
         codifValueNameField.setLabel(Msg.getMsg("codig.field.name"));
         codifValueNameField.setRequired(true);
@@ -125,17 +124,9 @@ public class CodificatorPage extends VerticalLayout {
     private void afterCodifSelection(Codificator codificator) {
         selectedCodif = codificator;
         codificatorValueList = codificatorRepository.getCodifValuesByCode(selectedCodif.getCode());
-//        codificatorDescription.setValue(selectedCodif.getDescription());
         codificatorValueGrid.setItems(codificatorValueList);
         addCodifValueButton.setEnabled(true);
     }
-
-//    private void customValueListener(Codificator codificator) {
-//        selectedCodif = codificator;
-//        codificatorDescription.setValue("");
-//        codificatorValueBinder.setBean(new CodificatorValue());
-//        codificatorValueGrid.setItems(new ArrayList<>());
-//    }
 
     private void enableAddEditCodifValue(boolean value) {
         codifValueNameField.setEnabled(value);
@@ -164,6 +155,10 @@ public class CodificatorPage extends VerticalLayout {
         });
         return delete;
     }
+
+    //================================================================
+    //                     GETTERS AND SETTERS
+    //================================================================
 
     public CodificatorValue getSelectedCodifValue() {
         return selectedCodifValue;

@@ -43,4 +43,19 @@ public class CodificatorRepository {
         map.put("code", code);
         codificatorMapper.createCodifValue(map);
     }
+
+    public void addGenreToAnime(long animeId, long genreId) {
+        Map map = new HashMap();
+        map.put("anime_id", animeId);
+        map.put("genre_id", genreId);
+        codificatorMapper.addGenreToAnime(map);
+    }
+
+    public List<CodificatorValue> getGenreListByAnimeId(long id) {
+        return codificatorMapper.getGenreListByAnimeId(id);
+    }
+
+    public void deleteGenresByAnimeId(long animeId) {
+        codificatorMapper.deleteGenresByAnimeId(animeId);
+    }
 }

@@ -8,6 +8,15 @@ public class CodificatorValue {
 
     private String description;
 
+    public CodificatorValue() {
+
+    }
+
+    public CodificatorValue(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public String getDescription() {
         return description;
     }

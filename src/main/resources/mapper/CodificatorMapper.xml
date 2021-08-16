@@ -43,4 +43,23 @@
         )
     </insert>
 
+    <insert id="addGenreToAnime" parameterType="map">
+        INSERT INTO lval_anime_genres
+        VALUES (#{anime_id},
+                #{genre_id})
+    </insert>
+
+    <select id="getGenreListByAnimeId" parameterType="long" resultMap="CodifValueMap">
+        SELECT cdv.*
+        FROM lval_cdf_values cdv,
+             lval_anime_genres ag
+        WHERE ag.genre_id = cdv.id
+              AND ag.anime_id = #{id}
+    </select>
+
+    <delete id="deleteGenresByAnimeId" parameterType="long">
+        DELETE FROM lval_anime_genres
+        WHERE anime_id = #{anime_id}
+    </delete>
+
 </mapper>

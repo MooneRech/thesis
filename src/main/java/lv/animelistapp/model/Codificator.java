@@ -8,8 +8,8 @@ public class Codificator {
     public final static String RATING = "RATING";
     public final static String TYPE = "TYPE";
     public final static String STATUS = "STATUS";
-    private final static String STUDIOS = "STUDIOS";
-    private final static String SOURCE = "SOURCE";
+    public final static String STUDIOS = "STUDIOS";
+    public final static String SOURCE = "SOURCE";
 
     private long id;
 

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="lv.animelistapp.mapper.AnimeMapper">
+
+    <resultMap id="AnimeDetailMap" type="lv.animelistapp.model.AnimeDetails">
+        <result column="id"         property="id"           jdbcType="DECIMAL"/>
+        <result column="title_jp"   property="titleJP"      jdbcType="VARCHAR"/>
+        <result column="title_eng"  property="titleEN"      jdbcType="VARCHAR"/>
+        <result column="title_lv"   property="titleLV"      jdbcType="VARCHAR"/>
+        <result column="image_id"   property="imageId"      jdbcType="DECIMAL"/>
+        <result column="image"      property="image"        jdbcType="VARCHAR"/>
+        <result column="image_name" property="imageName"    jdbcType="VARCHAR"/>
+        <result column="type_id"    property="typeId"       jdbcType="DECIMAL"/>
+        <result column="type"       property="type"         jdbcType="VARCHAR"/>
+        <result column="rating_id"  property="ratingId"     jdbcType="DECIMAL"/>
+        <result column="rating"     property="rating"       jdbcType="VARCHAR"/>
+        <result column="studios_id" property="studiosId"    jdbcType="DECIMAL"/>
+        <result column="studios"    property="studios"      jdbcType="VARCHAR"/>
+        <result column="status_id"  property="statusId"     jdbcType="DECIMAL"/>
+        <result column="status"     property="status"       jdbcType="VARCHAR"/>
+        <result column="aired_from" property="airedFrom"    jdbcType="DATE"/>
+        <result column="aired_to"   property="airedTo"      jdbcType="DATE"/>
+        <result column="episodes"   property="episodes"     jdbcType="DECIMAL"/>
+        <result column="duration"   property="duration"     jdbcType="DECIMAL"/>
+        <result column="source_id"  property="sourceId"     jdbcType="DECIMAL"/>
+        <result column="source"     property="source"       jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <select id="getAnimeById" parameterType="long" resultMap="AnimeDetailMap">
+        SELECT  anime.id,
+                anime.title_jp,
+                anime.title_eng,
+                anime.title_lv,
+                anime.image_id,
+                img.image,
+                img.image_name,
+                anime.type_id,
+                get_cdv_value_by_id(anime.type_id) as type,
+                anime.rating_id,
+                get_cdv_value_by_id(anime.rating_id) as rating,
+                anime.studios_id,
+                get_cdv_value_by_id(anime.studios_id) as studios,
+                anime.status_id,
+                get_cdv_value_by_id(anime.status_id) as status,
+                anime.aired_from,
+                anime.aired_to,
+                anime.episode_count as episodes,
+                anime.duration, anime.source_id,
+                get_cdv_value_by_id(anime.source_id) as source,
+                anime.description
+        FROM lval_anime_info anime
+        LEFT JOIN lval_images img ON anime.image_id = img.id
+        WHERE anime.id = #{id}
+    </select>
+
+    <insert id="createAnimeEntity"  parameterType="map" statementType="CALLABLE" useGeneratedKeys="true">
+        {call create_anime_entity(
+            #{p_title_jp,   mode=IN,    jdbcType=VARCHAR,   javaType=java.lang.String},
+            #{p_title_en,   mode=IN,    jdbcType=VARCHAR,   javaType=java.lang.String},
+            #{p_title_lv,   mode=IN,    jdbcType=VARCHAR,   javaType=java.lang.String},
+            #{p_type_id,    mode=IN,    jdbcType=INTEGER,   javaType=java.lang.Long},
+            #{p_episodes,   mode=IN,    jdbcType=INTEGER,   javaType=java.lang.Integer},
+            #{p_status_id,  mode=IN,    jdbcType=INTEGER,   javaType=java.lang.Long},
+            #{p_aired_from, mode=IN,    jdbcType=DATE,      javaType=java.time.LocalDate},
+            #{p_aired_to,   mode=IN,    jdbcType=DATE,      javaType=java.time.LocalDate},
+            #{p_studios_id, mode=IN,    jdbcType=INTEGER,   javaType=java.lang.Long},
+            #{p_source_id,  mode=IN,    jdbcType=INTEGER,   javaType=java.lang.Long},
+            #{p_duration,   mode=IN,    jdbcType=INTEGER,   javaType=java.lang.Integer},
+            #{p_rating_id,  mode=IN,    jdbcType=INTEGER,   javaType=java.lang.Long},
+            #{p_image,      mode=IN,    jdbcType=BLOB},
+            #{p_image_name, mode=IN,    jdbcType=VARCHAR,   javaType=java.lang.String},
+            #{p_description,mode=IN,    jdbcType=BLOB},
+            #{p_out_id,     mode=OUT,   jdbcType=INTEGER,   javaType=java.lang.Long},
+            #{p_out_image_id,mode=OUT,   jdbcType=INTEGER,   javaType=java.lang.Long}
+        )}
+    </insert>
+
+    <update id="updateAnimeEntity" parameterType="map" statementType="CALLABLE" useGeneratedKeys="true">
+        {call update_anime_entry(
+            #{p_title_jp,       mode=IN,    jdbcType=VARCHAR,   javaType=java.lang.String},
+            #{p_title_en,       mode=IN,    jdbcType=VARCHAR,   javaType=java.lang.String},
+            #{p_title_lv,       mode=IN,    jdbcType=VARCHAR,   javaType=java.lang.String},
+            #{p_type_id,        mode=IN,    jdbcType=INTEGER,   javaType=java.lang.Long},
+            #{p_episodes,       mode=IN,    jdbcType=INTEGER,   javaType=java.lang.Integer},
+            #{p_status_id,      mode=IN,    jdbcType=INTEGER,   javaType=java.lang.Long},
+            #{p_aired_from,     mode=IN,    jdbcType=DATE,      javaType=java.time.LocalDate},
+            #{p_aired_to,       mode=IN,    jdbcType=DATE,      javaType=java.time.LocalDate},
+            #{p_studios_id,     mode=IN,    jdbcType=INTEGER,   javaType=java.lang.Long},
+            #{p_source_id,      mode=IN,    jdbcType=INTEGER,   javaType=java.lang.Long},
+            #{p_duration,       mode=IN,    jdbcType=INTEGER,   javaType=java.lang.Integer},
+            #{p_rating_id,      mode=IN,    jdbcType=INTEGER,   javaType=java.lang.Long},
+            #{p_image,          mode=IN,    jdbcType=BLOB},
+            #{p_image_name,     mode=IN,    jdbcType=VARCHAR,   javaType=java.lang.String},
+            #{p_id,             mode=IN,    jdbcType=INTEGER,   javaType=java.lang.Long},
+            #{p_image_id,       mode=IN,    jdbcType=INTEGER,   javaType=java.lang.Long},
+            #{p_description,mode=IN,    jdbcType=BLOB}
+        )}
+    </update>
+
+    <delete id="deleteAnimeEntity" parameterType="long" statementType="CALLABLE">
+        {call delete_anime_entity(
+            #{p_anime_id,   mode=IN,    jdbcType=INTEGER,   javaType=java.lang.Long}
+        )}
+    </delete>
+
+    <select id="getAnimeList" resultMap="AnimeDetailMap">
+        SELECT  anime.id,
+        anime.title_jp,
+        anime.title_eng,
+        anime.title_lv,
+        anime.image_id,
+        img.image,
+        img.image_name,
+        anime.type_id,
+        get_cdv_value_by_id(anime.type_id) as type,
+        anime.rating_id,
+        get_cdv_value_by_id(anime.rating_id) as rating,
+        anime.studios_id,
+        get_cdv_value_by_id(anime.studios_id) as studios,
+        anime.status_id,
+        get_cdv_value_by_id(anime.status_id) as status,
+        anime.aired_from,
+        anime.aired_to,
+        anime.episode_count as episodes,
+        anime.duration, anime.source_id,
+        get_cdv_value_by_id(anime.source_id) as source
+        FROM lval_anime_info anime
+        LEFT JOIN lval_images img ON anime.image_id = img.id
+    </select>
+
+</mapper>

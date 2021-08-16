@@ -8,15 +8,14 @@ import com.vaadin.flow.component.contextmenu.SubMenu;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.menubar.MenuBarVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import lv.animelistapp.model.defaults.LvalUserDetails;
 import lv.animelistapp.security.SecurityConfiguration;
 import lv.animelistapp.utils.Msg;
 import lv.animelistapp.view.LoginPage;
+import lv.animelistapp.view.admin.anime.AdminAnimePage;
 import lv.animelistapp.view.admin.codif.CodificatorPage;
 import lv.animelistapp.view.permitted.RegistrationPage;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 
 
 public class MainMenuBar extends HorizontalLayout {
@@ -39,7 +38,6 @@ public class MainMenuBar extends HorizontalLayout {
             horizontalLayout.add(loginPage, registrationPage);
         }
 
-
         /* Button listeners*/
         loginPage.addClickListener(e -> {
            loginPage.getUI().ifPresent(ui ->
@@ -55,6 +53,8 @@ public class MainMenuBar extends HorizontalLayout {
                 e -> getUI().ifPresent(ui -> ui.navigate("/"));
         ComponentEventListener<ClickEvent<MenuItem>> codifListener =
                 e -> getUI().ifPresent(ui -> ui.navigate(CodificatorPage.class));
+        ComponentEventListener<ClickEvent<MenuItem>> adminAnimePage =
+                e -> getUI().ifPresent(ui -> ui.navigate(AdminAnimePage.class));
 
         /* Menu & submenu*/
         menuBar.addThemeVariants(MenuBarVariant.LUMO_TERTIARY);
@@ -67,12 +67,10 @@ public class MainMenuBar extends HorizontalLayout {
             MenuItem adminItem = menuBar.addItem(Msg.getMsg("menu.admin"));
             SubMenu adminSubmenu = adminItem.getSubMenu();
             adminSubmenu.addItem(Msg.getMsg("menu.admin.codificators"), codifListener);
+            adminSubmenu.addItem(Msg.getMsg("menu.admin.anime"), adminAnimePage);
         }
 
-
-
         add(menuBar, horizontalLayout);
-
 
     }
 
