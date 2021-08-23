@@ -2,6 +2,12 @@ package lv.animelistapp.model;
 
 public class CodificatorValue {
 
+    public static final String WATCHING = "Skatāms";
+    public static final String COMPLETED = "Pabeigts";
+    public static final String ON_HOLD = "Pieturēts";
+    public static final String DROPPED = "Nomests";
+    public static final String PWT = "Plāno skatīties";
+
     private long id;
 
     private String name;
@@ -15,6 +21,10 @@ public class CodificatorValue {
     public CodificatorValue(long id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public String getNameAndDescription() {
+        return "(" + name + ") " + description;
     }
 
     public String getDescription() {

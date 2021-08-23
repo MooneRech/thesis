@@ -9,19 +9,17 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org.vaadin</groupId>
-	<artifactId>example-app</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>example-app</name>
+	<artifactId>lval</artifactId>
+	<version>0.0.1</version>
+	<name>lval</name>
+	<packaging>war</packaging>
 	<description>Vaadin project for Spring Boot</description>
 	<properties>
 		<java.version>15</java.version>
 		<vaadin.version>20.0.5</vaadin.version>
+		<tomcat.version>9.0.52</tomcat.version>
 	</properties>
 	<dependencies>
-		<!--<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>-->
 
 		<!--Security-->
 		<dependency>
@@ -33,6 +31,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
+		<!--<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>-->
 
 		<!--Vaadin-->
 		<dependency>
@@ -82,6 +86,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<executable>true</executable>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

@@ -65,7 +65,7 @@ public class AddEditAnimeEntity extends VerticalLayout implements HasUrlParamete
         }
     }
 
-    MainMenuBar menuBar = new MainMenuBar();
+    MainMenuBar menuBar = new MainMenuBar(MainMenuBar.DEFAULT);
 
     CustomTextField titleJP = new CustomTextField(Msg.getMsg("anime.edit.title.jp"));
     CustomTextField titleENG = new CustomTextField(Msg.getMsg("anime.edit.title.en"));
@@ -159,7 +159,7 @@ public class AddEditAnimeEntity extends VerticalLayout implements HasUrlParamete
         selectedGenreGrid.setWidth("350px");
         selectedGenreGrid.setColumns("name");
         selectedGenreGrid.getColumnByKey("name").setHeader(Msg.getMsg("anime.edit.grid.name")).setAutoWidth(true);
-        selectedGenreGrid.addComponentColumn(e -> getDeleteButton(e)).setHeader("").setAutoWidth(true).setAutoWidth(true);
+        selectedGenreGrid.addComponentColumn(this::getDeleteButton).setHeader("").setAutoWidth(true).setAutoWidth(true);
 
         UploadI18N i18N = new UploadI18N();
         i18N.setAddFiles(new UploadI18N.AddFiles());

@@ -62,4 +62,10 @@
         WHERE anime_id = #{anime_id}
     </delete>
 
+    <select id="getSpecificCdvValue" parameterType="String" resultMap="CodifValueMap">
+        SELECT *
+        FROM lval_cdf_values
+        WHERE id = get_cdv_id_by_value(#{code}, #{value})
+    </select>
+
 </mapper>

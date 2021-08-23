@@ -31,9 +31,8 @@ public class CodificatorPage extends VerticalLayout {
 
     Binder<CodificatorValue> codificatorValueBinder = new Binder<>();
 
-    MainMenuBar menuBar = new MainMenuBar();
+    MainMenuBar menuBar = new MainMenuBar(MainMenuBar.DEFAULT);
     ComboBox<Codificator> codificatorSelect = new ComboBox<>();
-//    TextArea codificatorDescription = new TextArea();
     Grid<CodificatorValue> codificatorValueGrid = new Grid<>(CodificatorValue.class);
     TextField codifValueNameField = new TextField();
     TextArea codifValueDescriptionField = new TextArea();
@@ -60,10 +59,10 @@ public class CodificatorPage extends VerticalLayout {
 
         codificatorValueGrid.setColumns("name", "description");
         codificatorValueGrid.getColumnByKey("name").setHeader(Msg.getMsg("codif.grid.name")).setAutoWidth(true);
-        codificatorValueGrid.getColumnByKey("description").setHeader(Msg.getMsg("codif.grid.description")).setAutoWidth(true);
+        codificatorValueGrid.getColumnByKey("description").setHeader(Msg.getMsg("codif.grid.description")).setWidth("350px");
         codificatorValueGrid.setWidth("100%");
-        codificatorValueGrid.addComponentColumn(e -> getEditButton(e)).setHeader("").setAutoWidth(true);
-        codificatorValueGrid.addComponentColumn(e -> getDeleteButton(e)).setHeader("").setAutoWidth(true);
+        codificatorValueGrid.addComponentColumn(this::getEditButton).setHeader("").setAutoWidth(true);
+        codificatorValueGrid.addComponentColumn(this::getDeleteButton).setHeader("").setAutoWidth(true);
         codificatorValueGrid.addThemeVariants(GridVariant.LUMO_WRAP_CELL_CONTENT);
 
         codifValueNameField.setLabel(Msg.getMsg("codig.field.name"));

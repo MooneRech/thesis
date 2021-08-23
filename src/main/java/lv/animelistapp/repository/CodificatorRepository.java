@@ -58,4 +58,12 @@ public class CodificatorRepository {
     public void deleteGenresByAnimeId(long animeId) {
         codificatorMapper.deleteGenresByAnimeId(animeId);
     }
+
+    public CodificatorValue getSpecificCdvValue(String value, String code) {
+        Map map = new HashMap();
+        map.put("value", value);
+        map.put("code", code);
+        return codificatorMapper.getSpecificCdvValue(map);
+    }
+
 }

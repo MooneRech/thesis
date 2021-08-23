@@ -25,4 +25,6 @@ public interface CodificatorMapper {
     List<CodificatorValue> getGenreListByAnimeId(long id);
 
     void deleteGenresByAnimeId(long animeId);
+
+    CodificatorValue getSpecificCdvValue(Map map);
 }

@@ -41,7 +41,7 @@ public class AdminAnimePage extends VerticalLayout {
     @Autowired
     CodificatorRepository codificatorRepository;
 
-    MainMenuBar menuBar = new MainMenuBar();
+    MainMenuBar menuBar = new MainMenuBar(MainMenuBar.DEFAULT);
     Grid<AnimeDetails> animeDetailsGrid = new Grid<>(AnimeDetails.class, false);
 
     private List<AnimeDetails> animeDetailList;

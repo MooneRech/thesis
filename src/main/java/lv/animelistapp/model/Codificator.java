@@ -10,6 +10,8 @@ public class Codificator {
     public final static String STATUS = "STATUS";
     public final static String STUDIOS = "STUDIOS";
     public final static String SOURCE = "SOURCE";
+    public final static String ANIME_STATUS = "ANIME_STATUS";
+    public final static String SCORE = "SCORE";
 
     private long id;
 

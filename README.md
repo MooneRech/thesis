@@ -11,3 +11,16 @@ CustomUserDetails userDetails =
 .getAuthentication()
 .getPrincipal();
 
+
+for production uncomment this:
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-tomcat</artifactId>
+<scope>provided</scope>
+</dependency>
+
+
+mvn compile
+vaadin:prepare-frontend
+vaadin:build-frontend
+mvn package
