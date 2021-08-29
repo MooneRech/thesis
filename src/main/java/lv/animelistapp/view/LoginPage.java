@@ -1,25 +1,31 @@
 package lv.animelistapp.view;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.page.History;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 import lv.animelistapp.utils.Msg;
+import lv.animelistapp.view.permitted.RegistrationPage;
 
 @Route("login")
 public class LoginPage extends VerticalLayout implements BeforeEnterObserver {
     LoginForm loginForm = new LoginForm();
+    History history;
 
     public LoginPage() {
+        history = UI.getCurrent().getPage().getHistory();
         loginForm.setI18n(changeLanguage());
         loginForm.setAction("login");
 
         setSizeFull();
         setDefaultHorizontalComponentAlignment(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
-
+        loginForm.addForgotPasswordListener(e -> getUI().ifPresent(ui -> ui.navigate(RegistrationPage.class)));
+        
         add(loginForm);
 
     }
@@ -52,6 +58,8 @@ public class LoginPage extends VerticalLayout implements BeforeEnterObserver {
             loginForm.setError(true);
         }
     }
+
+
 
 
 }
