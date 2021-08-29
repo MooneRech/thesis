@@ -109,7 +109,6 @@ public class AnimePage extends VerticalLayout implements HasUrlParameter<String>
         scoreBox.setItems(scoreList);
 
         List<CodificatorValue> statusList = new ArrayList<>();
-        statusList.add(new CodificatorValue());
         statusList.addAll(codificatorRepository.getCodifValuesByCode(Codificator.ANIME_STATUS));
         statusBox.setItems(statusList);
     }
@@ -194,10 +193,6 @@ public class AnimePage extends VerticalLayout implements HasUrlParameter<String>
 
             animeListLayout.add(statusBox, scoreBox, progress, saveButton);
         }
-
-
-
-
 
         horizontalLayout.add(imageAndDetails,descriptionAndReviews);
         horizontalLayout.getStyle().set("padding", "0");

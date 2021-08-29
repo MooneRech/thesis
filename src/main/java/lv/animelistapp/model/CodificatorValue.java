@@ -24,7 +24,7 @@ public class CodificatorValue {
     }
 
     public String getNameAndDescription() {
-        return "(" + name + ") " + description;
+        return (name == null || name.isEmpty()) ? "" : "(" + name + ") " + description;
     }
 
     public String getDescription() {
