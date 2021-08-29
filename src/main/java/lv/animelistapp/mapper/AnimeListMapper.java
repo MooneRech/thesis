@@ -21,4 +21,6 @@ public interface AnimeListMapper {
 
     void createAnimeTag(Map map);
 
+    AnimeListModel getUserAnimeDetails(Map map);
+
 }

@@ -81,4 +81,8 @@ public class AnimeRepository {
         return animeMapper.getAnimeList();
     }
 
+    public AnimeDetails getAnimePageById(long animeId) {
+        return animeMapper.getAnimePageById(animeId);
+    }
+
 }

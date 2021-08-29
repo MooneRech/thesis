@@ -95,5 +95,18 @@
         )
     </insert>
 
+    <select id="getUserAnimeDetails" parameterType="map" resultMap="AnimeListMap">
+        SELECT  lst.id,
+                anime.id as anime_id,
+                anime.episode_count as episodes,
+                lst.score,
+                lst.progress,
+                lst.status_id AS usr_status_id,
+                GET_CDV_VALUE_BY_ID(lst.status_id) AS usr_status
+        FROM lval_anime_info anime
+        LEFT JOIN lval_user_anime_lists lst ON anime.id = lst.anime_id AND lst.user_id = #{user_id}
+        WHERE anime.id = #{anime_id}
+
+    </select>
 
 </mapper>

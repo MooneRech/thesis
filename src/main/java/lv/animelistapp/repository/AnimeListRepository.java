@@ -89,4 +89,12 @@ public class AnimeListRepository {
         animeListMapper.createAnimeTag(map);
     }
 
+    public  AnimeListModel getUserAnimeDetails(long animeId, long userId) {
+        Map map = new HashMap();
+        map.put("anime_id", animeId);
+        map.put("user_id", userId);
+
+        return animeListMapper.getUserAnimeDetails(map);
+    }
+
 }

@@ -25,7 +25,6 @@ public class MainMenuBar extends HorizontalLayout {
 
     public static final String DEFAULT = "DEFAULT";
     public static final String ANIME_LIST = "LIST";
-    public static final String MAIN_PAGE = "MAIN";
 
     private String mode;
     private String param;
@@ -36,6 +35,7 @@ public class MainMenuBar extends HorizontalLayout {
     CustomPrimaryButton loginPage = new CustomPrimaryButton(Msg.getMsg("menu.login"));
     Button registrationPage = new Button(Msg.getMsg("menu.registration"));
     Button addAnime = new Button(Msg.getMsg("menu.animelist.add"));
+    Button animelist = new Button();
 
     HorizontalLayout horizontalLayout = new HorizontalLayout();
     VerticalLayout verticalLayout = new VerticalLayout();
@@ -81,12 +81,22 @@ public class MainMenuBar extends HorizontalLayout {
         menuBar.setOpenOnHover(true);
 
         menuBar.addItem(Msg.getMsg("menu.anime"), root);
-        menuBar.addItem(Msg.getMsg("menu.community"));
+        /*menuBar.addItem(Msg.getMsg("menu.community"));*/
 
         if(isAuthenticated && !isAnonymous) {
             //add profile
             user = (LvalUserDetails) SecurityContextHolder
                     .getContext().getAuthentication().getPrincipal();
+            animelist.setText(user.getUsername());
+            animelist.addClickListener(e -> {
+                animelist.getUI().ifPresent(ui -> {
+                    ui.navigate("/animelist/" + user.getUsername());
+                });
+            });
+            animelist.addThemeVariants(ButtonVariant.LUMO_SMALL, ButtonVariant.LUMO_TERTIARY);
+            horizontalLayout.add(animelist);
+            verticalLayout.add(horizontalLayout);
+
         } else {
             /* Button listeners*/
             loginPage.addClickListener(e -> {
@@ -108,12 +118,12 @@ public class MainMenuBar extends HorizontalLayout {
         }
 
         if(user != null && user.isUserInRole(SecurityConfiguration.ROLE_ADMIN) ) {
-            if(!mode.equals(MainMenuBar.ANIME_LIST)) {
+            //if(!mode.equals(MainMenuBar.ANIME_LIST)) {
                 MenuItem adminItem = menuBar.addItem(Msg.getMsg("menu.admin"));
                 SubMenu adminSubmenu = adminItem.getSubMenu();
                 adminSubmenu.addItem(Msg.getMsg("menu.admin.codificators"), codifListener);
                 adminSubmenu.addItem(Msg.getMsg("menu.admin.anime"), adminAnimePage);
-            }
+            //}
         }
         addToLayout();
     }

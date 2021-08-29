@@ -19,4 +19,6 @@ public interface AnimeMapper {
 
     List<AnimeDetails> getAnimeList();
 
+    AnimeDetails getAnimePageById(long animeId);
+
 }

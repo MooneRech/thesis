@@ -1,6 +1,9 @@
 package lv.animelistapp.model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class AnimeDetails {
@@ -49,7 +52,31 @@ public class AnimeDetails {
 
     private String description;
 
+    private String genresString;
+
+    private double avgScore;
+
+    public String getAvrScoreString() {
+        return String.format("%,.2f", avgScore);
+    }
+
+    public double getAvgScore() {
+        return avgScore;
+    }
+
+    public void setAvgScore(double avgScore) {
+        this.avgScore = avgScore;
+    }
+
     private List<CodificatorValue> genres;
+
+    public String getGenresString() {
+        return genresString;
+    }
+
+    public void setGenresString(String genresString) {
+        this.genresString = genresString;
+    }
 
     public double getDurDouble() {
         return (double) duration;
@@ -113,6 +140,27 @@ public class AnimeDetails {
 
     public void setEpisodes(int episodes) {
         this.episodes = episodes;
+    }
+
+    public String getAiredPeriod() {
+        String text = "";
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+        if(airedFrom == null) {
+            text = text + "-";
+        } else {
+            text = text + airedFrom.format(dateFormat);
+        }
+
+        text = text + " - ";
+
+        if(airedTo == null) {
+            text = text + "-";
+        } else {
+            text = text + airedTo.format(dateFormat);
+        }
+
+        return text;
     }
 
     public LocalDate getAiredTo() {
@@ -217,6 +265,23 @@ public class AnimeDetails {
 
     public void setImageId(long imageId) {
         this.imageId = imageId;
+    }
+
+    public String getTitleENLV() {
+        String text = "";
+        if(titleEN != null && !titleEN.equals("")) {
+            text = text + titleEN;
+        }
+
+        if(!text.equals("") && titleLV != null && !titleLV.equals("")) {
+            text = text + " / ";
+        }
+
+        if(titleLV != null && !titleLV.equals("")) {
+            text = text + titleLV;
+        }
+
+        return text;
     }
 
     public String getTitleLV() {

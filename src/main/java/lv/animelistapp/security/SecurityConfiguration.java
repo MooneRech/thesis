@@ -30,7 +30,7 @@ public class SecurityConfiguration extends VaadinWebSecurityConfigurerAdapter {
     private static final String LOGOUT_SUCCESS_URL = "/login";
 
     private static final String[] AUTH_WHITELIST = {
-            "/", "/registration", "/animelist/**"
+            "/", "/registration", "/animelist/**", "/anime/**"
     };
 
     private static final String[] AUTH_SECURED = {
