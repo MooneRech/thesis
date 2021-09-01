@@ -373,7 +373,7 @@ public class AnimeList extends VerticalLayout implements HasUrlParameter<String>
     //TODO: links
     //TODO: tag/genre search
     private void setGridColumns() {
-        allGrid.addColumn(AnimeListModel::getTitleJP)
+        allGrid/*.addColumn(AnimeListModel::getTitleJP)*/.addComponentColumn(this::getRedirectButton)
                 .setHeader(Msg.getMsg("animelist.page.grid.title.jp"))
                 .setAutoWidth(true);
         allEditColumn =
@@ -402,7 +402,7 @@ public class AnimeList extends VerticalLayout implements HasUrlParameter<String>
         allGrid.setHeightByRows(true);
         allGrid.addThemeVariants(GridVariant.LUMO_WRAP_CELL_CONTENT);
 
-        currentGrid.addColumn(AnimeListModel::getTitleJP)
+        currentGrid/*.addColumn(AnimeListModel::getTitleJP)*/.addComponentColumn(this::getRedirectButton)
                 .setHeader(Msg.getMsg("animelist.page.grid.title.jp"))
                 .setAutoWidth(true);
         currentEditColumn =
@@ -428,7 +428,7 @@ public class AnimeList extends VerticalLayout implements HasUrlParameter<String>
         currentGrid.setHeightByRows(true);
         currentGrid.addThemeVariants(GridVariant.LUMO_WRAP_CELL_CONTENT);
 
-        completedGrid.addColumn(AnimeListModel::getTitleJP)
+        completedGrid/*.addColumn(AnimeListModel::getTitleJP)*/.addComponentColumn(this::getRedirectButton)
                 .setHeader(Msg.getMsg("animelist.page.grid.title.jp"))
                 .setAutoWidth(true);
         completedEditColumn =
@@ -454,7 +454,7 @@ public class AnimeList extends VerticalLayout implements HasUrlParameter<String>
         completedGrid.setHeightByRows(true);
         completedGrid.addThemeVariants(GridVariant.LUMO_WRAP_CELL_CONTENT);
 
-        onHoldGrid.addColumn(AnimeListModel::getTitleJP)
+        onHoldGrid/*.addColumn(AnimeListModel::getTitleJP)*/.addComponentColumn(this::getRedirectButton)
                 .setHeader(Msg.getMsg("animelist.page.grid.title.jp"))
                 .setAutoWidth(true);
         onHoldEditColumn =
@@ -480,7 +480,7 @@ public class AnimeList extends VerticalLayout implements HasUrlParameter<String>
         onHoldGrid.setHeightByRows(true);
         onHoldGrid.addThemeVariants(GridVariant.LUMO_WRAP_CELL_CONTENT);
 
-        droppedGrid.addColumn(AnimeListModel::getTitleJP)
+        droppedGrid/*.addColumn(AnimeListModel::getTitleJP)*/.addComponentColumn(this::getRedirectButton)
                 .setHeader(Msg.getMsg("animelist.page.grid.title.jp"))
                 .setAutoWidth(true);
         droppedEditColumn =
@@ -506,7 +506,7 @@ public class AnimeList extends VerticalLayout implements HasUrlParameter<String>
         droppedGrid.setHeightByRows(true);
         droppedGrid.addThemeVariants(GridVariant.LUMO_WRAP_CELL_CONTENT);
 
-        pwtGrid.addColumn(AnimeListModel::getTitleJP)
+        pwtGrid/*.addColumn(AnimeListModel::getTitleJP)*/.addComponentColumn(this::getRedirectButton)
                 .setHeader(Msg.getMsg("animelist.page.grid.title.jp"))
                 .setAutoWidth(true);
         pwtEditColumn =
@@ -613,6 +613,14 @@ public class AnimeList extends VerticalLayout implements HasUrlParameter<String>
             animeListSearchField.addValueChangeListener(e -> pwtDataView.refreshAll());
         }
 
+    }
+
+    private Button getRedirectButton(AnimeListModel animeDetails) {
+        Button button = new Button(animeDetails.getTitleJP());
+        button.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+
+        button.addClickListener(e -> getUI().ifPresent(ui -> ui.navigate("anime/" + animeDetails.getAnimeId())));
+        return button;
     }
 
 }

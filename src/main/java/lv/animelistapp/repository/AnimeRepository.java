@@ -85,4 +85,21 @@ public class AnimeRepository {
         return animeMapper.getAnimePageById(animeId);
     }
 
+    public List<AnimeDetails> getArrivals() {
+        return animeMapper.getArrivals();
+    }
+
+    public List<AnimeDetails> getAnimeListForMainPage(String title, long typeId,
+                                                      long ratingId, long studiosId,
+                                                      String genre) {
+        Map map = new HashMap();
+        map.put("title", (title == null) ? null : "%"+title+"%");
+        map.put("type_id", checkIfNull(typeId));
+        map.put("rating_id", checkIfNull(ratingId));
+        map.put("studios_id", checkIfNull(studiosId));
+        map.put("genre", (genre == null) ? null : "%"+genre+"%");
+
+        return animeMapper.getAnimeListForMainPage(map);
+    }
+
 }

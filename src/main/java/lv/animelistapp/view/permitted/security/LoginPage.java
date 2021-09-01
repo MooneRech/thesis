@@ -1,4 +1,4 @@
-package lv.animelistapp.view;
+package lv.animelistapp.view.permitted.security;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.login.LoginForm;
@@ -9,7 +9,6 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 import lv.animelistapp.utils.Msg;
-import lv.animelistapp.view.permitted.RegistrationPage;
 
 @Route("login")
 public class LoginPage extends VerticalLayout implements BeforeEnterObserver {

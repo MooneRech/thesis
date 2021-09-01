@@ -1,4 +1,4 @@
-package lv.animelistapp.view.permitted;
+package lv.animelistapp.view.permitted.security;
 
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H1;

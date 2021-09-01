@@ -138,6 +138,10 @@ public class AnimeDetails {
         return episodes;
     }
 
+    public String getEpisodesString() {
+        return (episodes == 0) ? "-" : String.valueOf(episodes);
+    }
+
     public void setEpisodes(int episodes) {
         this.episodes = episodes;
     }

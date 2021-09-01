@@ -13,10 +13,10 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import lv.animelistapp.model.defaults.LvalUserDetails;
 import lv.animelistapp.security.SecurityConfiguration;
 import lv.animelistapp.utils.Msg;
-import lv.animelistapp.view.LoginPage;
+import lv.animelistapp.view.permitted.security.LoginPage;
 import lv.animelistapp.view.admin.anime.AdminAnimePage;
 import lv.animelistapp.view.admin.codif.CodificatorPage;
-import lv.animelistapp.view.permitted.RegistrationPage;
+import lv.animelistapp.view.permitted.security.RegistrationPage;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 

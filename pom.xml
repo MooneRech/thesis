@@ -19,6 +19,12 @@
 		<vaadin.version>20.0.5</vaadin.version>
 		<tomcat.version>9.0.52</tomcat.version>
 	</properties>
+	<repositories>
+		<repository>
+			<id>vaadin-addons</id>
+			<url>https://maven.vaadin.com/vaadin-addons</url>
+		</repository>
+	</repositories>
 	<dependencies>
 
 		<!--Security-->
@@ -43,6 +49,12 @@
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-spring-boot-starter</artifactId>
 			<version>${vaadin.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.vaadin.klaudeta</groupId>
+			<artifactId>grid-pagination</artifactId>
+			<version>2.0.10</version>
 		</dependency>
 
 		<!--Database-->

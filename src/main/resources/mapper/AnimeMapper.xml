@@ -164,4 +164,82 @@
         WHERE anime.id = #{animeId}
     </select>
 
+    <select id="getArrivals" resultMap="AnimeDetailMap" >
+        select *
+        from (
+            SELECT  anime.id,
+                    anime.title_jp,
+                    anime.title_eng,
+                    anime.title_lv,
+                    anime.image_id,
+                    img.image,
+                    img.image_name,
+                    anime.type_id,
+                    get_cdv_value_by_id(anime.type_id) as type,
+                    anime.rating_id,
+                    get_cdv_value_by_id(anime.rating_id) as rating,
+                    anime.studios_id,
+                    get_cdv_value_by_id(anime.studios_id) as studios,
+                    anime.status_id,
+                    get_cdv_value_by_id(anime.status_id) as status,
+                    anime.aired_from,
+                    anime.aired_to,
+                    anime.episode_count as episodes,
+                    anime.duration, anime.source_id,
+                    get_cdv_value_by_id(anime.source_id) as source,
+                    anime.description,
+                    GET_GENRE_LIST(anime.id) AS genres,
+                    (select AVG(ual.score)
+                    from lval_user_anime_lists ual
+                    where ual.anime_id = anime.id
+                    and score is not null ) as avr_score
+            FROM lval_anime_info anime
+            LEFT JOIN lval_images img ON anime.image_id = img.id
+            WHERE anime.status_id != get_cdv_id_by_value('STATUS','Rediģēšanā')) as v
+        ORDER BY v.aired_from DESC
+        LIMIT 10
+    </select>
+
+    <select id="getAnimeListForMainPage" resultMap="AnimeDetailMap"  parameterType="map">
+        select *
+        from (
+        SELECT  anime.id,
+                anime.title_jp,
+                anime.title_eng,
+                anime.title_lv,
+                anime.type_id,
+                get_cdv_value_by_id(anime.type_id) as type,
+                anime.rating_id,
+                get_cdv_value_by_id(anime.rating_id) as rating,
+                anime.studios_id,
+                get_cdv_value_by_id(anime.studios_id) as studios,
+                anime.status_id,
+                get_cdv_value_by_id(anime.status_id) as status,
+                anime.aired_from,
+                anime.aired_to,
+                anime.episode_count as episodes,
+                anime.duration, anime.source_id,
+                get_cdv_value_by_id(anime.source_id) as source,
+                GET_GENRE_LIST(anime.id) AS genres
+        FROM lval_anime_info anime ) as v
+        WHERE v.status_id != get_cdv_id_by_value('STATUS','Rediģēšanā')
+        <if test="title != null">
+            AND (v.title_jp like #{title}
+              OR v.title_eng like #{title}
+              OR v.title_lv like #{title})
+        </if>
+        <if test="type_id != null">
+            AND v.type_id = #{type_id}
+        </if>
+        <if test="rating_id != null">
+            AND v.rating_id = #{rating_id}
+        </if>
+        <if test="studios_id != null">
+            AND v.studios_id = #{studios_id}
+        </if>
+        <if test="genre != null">
+            AND v.genres like #{genre}
+        </if>
+    </select>
+
 </mapper>

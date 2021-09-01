@@ -1,7 +1,10 @@
 {
   "dependencies": {
     "@polymer/iron-icon": "3.0.1",
+    "@polymer/iron-iconset-svg": "^3.0.1",
     "@polymer/iron-list": "3.1.0",
+    "@polymer/paper-button": "^3.0.1",
+    "@polymer/paper-icon-button": "^3.0.2",
     "@polymer/polymer": "3.2.0",
     "@vaadin/flow-frontend": "./target/flow-frontend",
     "@vaadin/form": "./target/flow-frontend/form",
@@ -9,11 +12,16 @@
     "@vaadin/vaadin-accordion": "20.0.1",
     "@vaadin/vaadin-app-layout": "20.0.1",
     "@vaadin/vaadin-avatar": "20.0.1",
+    "@vaadin/vaadin-board": "20.0.1",
     "@vaadin/vaadin-button": "20.0.1",
+    "@vaadin/vaadin-charts": "20.0.1",
     "@vaadin/vaadin-checkbox": "20.0.1",
     "@vaadin/vaadin-combo-box": "20.0.1",
+    "@vaadin/vaadin-confirm-dialog": "20.0.1",
     "@vaadin/vaadin-context-menu": "20.0.1",
+    "@vaadin/vaadin-cookie-consent": "20.0.1",
     "@vaadin/vaadin-core-shrinkwrap": "20.0.5",
+    "@vaadin/vaadin-crud": "20.0.1",
     "@vaadin/vaadin-custom-field": "20.0.1",
     "@vaadin/vaadin-date-picker": "20.0.1",
     "@vaadin/vaadin-date-time-picker": "20.0.1",
@@ -21,6 +29,7 @@
     "@vaadin/vaadin-dialog": "20.0.1",
     "@vaadin/vaadin-form-layout": "20.0.1",
     "@vaadin/vaadin-grid": "20.0.1",
+    "@vaadin/vaadin-grid-pro": "20.0.1",
     "@vaadin/vaadin-icons": "20.0.1",
     "@vaadin/vaadin-item": "20.0.1",
     "@vaadin/vaadin-list-box": "20.0.1",
@@ -33,15 +42,17 @@
     "@vaadin/vaadin-ordered-layout": "20.0.1",
     "@vaadin/vaadin-progress-bar": "20.0.1",
     "@vaadin/vaadin-radio-button": "20.0.1",
+    "@vaadin/vaadin-rich-text-editor": "20.0.1",
     "@vaadin/vaadin-select": "20.0.1",
+    "@vaadin/vaadin-shrinkwrap": "20.0.5",
     "@vaadin/vaadin-split-layout": "20.0.1",
     "@vaadin/vaadin-tabs": "20.0.1",
     "@vaadin/vaadin-text-field": "20.0.1",
     "@vaadin/vaadin-time-picker": "20.0.1",
     "@vaadin/vaadin-upload": "20.0.1",
     "construct-style-sheets-polyfill": "2.4.16",
-    "lit-element": "2.5.1",
-    "lit-html": "1.4.1"
+    "lit-element": "^2.2.1",
+    "lit-html": "^1.1.2"
   },
   "devDependencies": {
     "@types/validator": "13.1.0",
@@ -77,17 +88,25 @@
   "vaadin": {
     "dependencies": {
       "@polymer/iron-icon": "3.0.1",
+      "@polymer/iron-iconset-svg": "^3.0.1",
       "@polymer/iron-list": "3.1.0",
+      "@polymer/paper-button": "^3.0.1",
+      "@polymer/paper-icon-button": "^3.0.2",
       "@polymer/polymer": "3.2.0",
       "@vaadin/router": "1.7.2",
       "@vaadin/vaadin-accordion": "20.0.1",
       "@vaadin/vaadin-app-layout": "20.0.1",
       "@vaadin/vaadin-avatar": "20.0.1",
+      "@vaadin/vaadin-board": "20.0.1",
       "@vaadin/vaadin-button": "20.0.1",
+      "@vaadin/vaadin-charts": "20.0.1",
       "@vaadin/vaadin-checkbox": "20.0.1",
       "@vaadin/vaadin-combo-box": "20.0.1",
+      "@vaadin/vaadin-confirm-dialog": "20.0.1",
       "@vaadin/vaadin-context-menu": "20.0.1",
+      "@vaadin/vaadin-cookie-consent": "20.0.1",
       "@vaadin/vaadin-core-shrinkwrap": "20.0.5",
+      "@vaadin/vaadin-crud": "20.0.1",
       "@vaadin/vaadin-custom-field": "20.0.1",
       "@vaadin/vaadin-date-picker": "20.0.1",
       "@vaadin/vaadin-date-time-picker": "20.0.1",
@@ -95,6 +114,7 @@
       "@vaadin/vaadin-dialog": "20.0.1",
       "@vaadin/vaadin-form-layout": "20.0.1",
       "@vaadin/vaadin-grid": "20.0.1",
+      "@vaadin/vaadin-grid-pro": "20.0.1",
       "@vaadin/vaadin-icons": "20.0.1",
       "@vaadin/vaadin-item": "20.0.1",
       "@vaadin/vaadin-list-box": "20.0.1",
@@ -107,15 +127,17 @@
       "@vaadin/vaadin-ordered-layout": "20.0.1",
       "@vaadin/vaadin-progress-bar": "20.0.1",
       "@vaadin/vaadin-radio-button": "20.0.1",
+      "@vaadin/vaadin-rich-text-editor": "20.0.1",
       "@vaadin/vaadin-select": "20.0.1",
+      "@vaadin/vaadin-shrinkwrap": "20.0.5",
       "@vaadin/vaadin-split-layout": "20.0.1",
       "@vaadin/vaadin-tabs": "20.0.1",
       "@vaadin/vaadin-text-field": "20.0.1",
       "@vaadin/vaadin-time-picker": "20.0.1",
       "@vaadin/vaadin-upload": "20.0.1",
       "construct-style-sheets-polyfill": "2.4.16",
-      "lit-element": "2.5.1",
-      "lit-html": "1.4.1"
+      "lit-element": "^2.2.1",
+      "lit-html": "^1.1.2"
     },
     "devDependencies": {
       "@types/validator": "13.1.0",
@@ -142,6 +164,6 @@
       "workbox-precaching": "6.1.0",
       "workbox-webpack-plugin": "6.1.0"
     },
-    "hash": "59d8ef5e03d4664ecb72059ad78054a3a20a4e45489e84ab1cca00004f5f1b04"
+    "hash": "f2044df4c626f561e962f8befe8b52bf2d8c79fdcbb5e6c4c50a01c2c1a2e617"
   }
 }

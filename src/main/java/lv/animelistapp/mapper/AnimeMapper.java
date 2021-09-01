@@ -21,4 +21,8 @@ public interface AnimeMapper {
 
     AnimeDetails getAnimePageById(long animeId);
 
+    List<AnimeDetails> getArrivals();
+
+    List<AnimeDetails> getAnimeListForMainPage(Map map);
+
 }
