@@ -2,6 +2,7 @@ package lv.animelistapp.component;
 
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.contextmenu.MenuItem;
@@ -35,7 +36,8 @@ public class MainMenuBar extends HorizontalLayout {
     CustomPrimaryButton loginPage = new CustomPrimaryButton(Msg.getMsg("menu.login"));
     Button registrationPage = new Button(Msg.getMsg("menu.registration"));
     Button addAnime = new Button(Msg.getMsg("menu.animelist.add"));
-    Button animelist = new Button();
+    //Button animelist = new Button();
+    MenuBar userBar = new MenuBar();
 
     HorizontalLayout horizontalLayout = new HorizontalLayout();
     VerticalLayout verticalLayout = new VerticalLayout();
@@ -87,14 +89,27 @@ public class MainMenuBar extends HorizontalLayout {
             //add profile
             user = (LvalUserDetails) SecurityContextHolder
                     .getContext().getAuthentication().getPrincipal();
-            animelist.setText(user.getUsername());
-            animelist.addClickListener(e -> {
-                animelist.getUI().ifPresent(ui -> {
-                    ui.navigate("/animelist/" + user.getUsername());
-                });
-            });
-            animelist.addThemeVariants(ButtonVariant.LUMO_SMALL, ButtonVariant.LUMO_TERTIARY);
-            horizontalLayout.add(animelist);
+//            animelist.setText(user.getUsername());
+//            animelist.addClickListener(e -> {
+//                animelist.getUI().ifPresent(ui -> {
+//                    ui.navigate("/animelist/" + user.getUsername());
+//                });
+//            });
+//            animelist.addThemeVariants(ButtonVariant.LUMO_SMALL, ButtonVariant.LUMO_TERTIARY);
+//
+            userBar.addThemeVariants(MenuBarVariant.LUMO_TERTIARY);
+            userBar.setOpenOnHover(true);
+
+            ComponentEventListener<ClickEvent<MenuItem>> animeList =
+                    e -> getUI().ifPresent(ui -> ui.navigate("/animelist/" + user.getUsername()));
+            ComponentEventListener<ClickEvent<MenuItem>> logout =
+                    e -> UI.getCurrent().getPage().setLocation("/logout");
+
+            MenuItem userItem = userBar.addItem(user.getUsername(),animeList);
+            SubMenu userSubmenu = userItem.getSubMenu();
+            userSubmenu.addItem(Msg.getMsg("menu.logout"), logout);
+
+            horizontalLayout.add(userBar);
             verticalLayout.add(horizontalLayout);
 
         } else {

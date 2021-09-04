@@ -27,7 +27,7 @@ public class SecurityConfiguration extends VaadinWebSecurityConfigurerAdapter {
     private static final String LOGIN_PROCESSING_URL = "/login";
     private static final String LOGIN_FAILURE_URL = "/login?error";
     private static final String LOGIN_URL = "/login";
-    private static final String LOGOUT_SUCCESS_URL = "/login";
+    private static final String LOGOUT_SUCCESS_URL = "/";
 
     private static final String[] AUTH_WHITELIST = {
             "/", "/registration", "/animelist/**", "/anime/**"
