@@ -26,6 +26,7 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.HasUrlParameter;
 import com.vaadin.flow.router.Route;
+import lv.animelistapp.component.CustomDeleteButton;
 import lv.animelistapp.component.CustomPrimaryButton;
 import lv.animelistapp.component.MainMenuBar;
 import lv.animelistapp.model.AnimeDetails;
@@ -569,9 +570,15 @@ public class AnimeList extends VerticalLayout implements HasUrlParameter<String>
             updateDialog.close();
         });
 
+        CustomDeleteButton delete = new CustomDeleteButton();
+        delete.addClickListener(e -> animeListRepository.deleteAnimeFromList(animeListModel.getId()));
+
+        HorizontalLayout buttonLayout = new HorizontalLayout();
+        buttonLayout.add(save, delete);
+
         verticalLayout.add(status, score, episodes);
         horizontalLayout.add(verticalLayout,tags);
-        updateDialog.add(horizontalLayout, save);
+        updateDialog.add(horizontalLayout, buttonLayout);
 
     }
 

@@ -106,7 +106,12 @@
         FROM lval_anime_info anime
         LEFT JOIN lval_user_anime_lists lst ON anime.id = lst.anime_id AND lst.user_id = #{user_id}
         WHERE anime.id = #{anime_id}
-
     </select>
+
+    <delete id="deleteAnimeFromList" parameterType="long" statementType="CALLABLE">
+        {call delete_anime_from_list(
+            #{p_id, mode=IN,    jdbcType=INTEGER,   javaType=java.lang.Long}
+        )}
+    </delete>
 
 </mapper>

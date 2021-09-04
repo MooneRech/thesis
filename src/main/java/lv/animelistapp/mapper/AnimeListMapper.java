@@ -23,4 +23,6 @@ public interface AnimeListMapper {
 
     AnimeListModel getUserAnimeDetails(Map map);
 
+    void deleteAnimeFromList(long id);
+
 }

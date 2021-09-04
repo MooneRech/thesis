@@ -97,4 +97,8 @@ public class AnimeListRepository {
         return animeListMapper.getUserAnimeDetails(map);
     }
 
+    public void deleteAnimeFromList(long id) {
+        animeListMapper.deleteAnimeFromList(id);
+    }
+
 }
