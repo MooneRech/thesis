@@ -96,7 +96,7 @@ public class MainPage extends VerticalLayout {
         type.setItems(typeList);
 
         rating.setItemLabelGenerator(CodificatorValue::getName);
-        rating.setItems(typeList);
+        rating.setItems(ratingList);
 
         studios.setItemLabelGenerator(CodificatorValue::getName);
         studios.setItems(studiosList);

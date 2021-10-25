@@ -15,7 +15,7 @@ public class CodificatorValue {
     private String description;
 
     public CodificatorValue() {
-
+        this.name =  "";
     }
 
     public CodificatorValue(long id, String name) {
